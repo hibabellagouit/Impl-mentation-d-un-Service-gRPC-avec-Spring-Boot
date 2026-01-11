@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "io.grpc.gen";
+option java_outer_classname = "CompteProto";
+
+package compte;
+
+// Définition du service Compte
+grpc CompteService {
+  rpc GetCompte (CompteRequest) returns (CompteResponse) {}
+  rpc GetAllComptes (Empty) returns (stream CompteResponse) {}
+  rpc SaveCompte (CompteRequest) returns (CompteResponse) {}
+  rpc DeleteCompte (CompteRequest) returns (DeleteResponse) {}
+  rpc GetTotalSolde (Empty) returns (SoldeResponse) {}
+  rpc GetAverageSolde (Empty) returns (SoldeResponse) {}
+}
+
+// Messages de requête et de réponse
+message CompteRequest {
+  string id = 1;
+  float solde = 2;
+  string date_creation = 3;
+  string type = 4;
+}
+
+message CompteResponse {
+  string id = 1;
+  float solde = 2;
+  string date_creation = 3;
+  string type = 4;
+}
+
+message DeleteResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message SoldeResponse {
+  float valeur = 1;
+}
+
+message Empty {}
